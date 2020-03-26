@@ -1,0 +1,35 @@
+<html>
+<head>
+  <title>画线算法</title>
+</head>
+<body>
+<canvas id="demoCanvas" width="200" height="200" style="background: #ccc;"/>
+<script type="text/javascript" src="common.js"></script>
+<script type="text/javascript">
+  const p0 = {x: 10, y: 20}, p1 = { x: 40, y: 100 };
+
+  // DDA算法（利用增量计算）
+  const dda = () => {
+    const m = (p1.y - p0.y) / (p1.x - p0.x);
+    const dx = 1;
+    const dy = m * dx;
+    const steps = p1.x - p0.x;
+    const points = [p0];
+    let curPoint = { x: p0.x, y: p0.y };
+    for (let i = 1; i < steps; i++) {
+      curPoint.x += dx;
+      curPoint.y += dy;
+      points.push({ x: Math.round(curPoint.x), y: Math.round(curPoint.y) });
+    }
+    render(points);
+  }
+  // dda();
+
+  // bresenham算法（利用增量整数计算）
+  //
+
+
+
+</script>
+</body>
+</html>
