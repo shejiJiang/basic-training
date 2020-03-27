@@ -6,7 +6,7 @@
 <canvas id="demoCanvas" width="200" height="200" style="background: #ccc;"/>
 <script type="text/javascript" src="common.js"></script>
 <script type="text/javascript">
-  const p0 = {x: 10, y: 20}, p1 = { x: 40, y: 100 };
+  const p0 = {x: 10, y: 60}, p1 = { x: 160, y: 100 };
 
   // DDA算法（利用增量计算）
   const dda = () => {
@@ -26,9 +26,28 @@
   // dda();
 
   // bresenham算法（利用增量整数计算）
-  //
-
-
+  const bresenham = () => {
+    const deltaY = p1.y - p0.y;
+    const deltaX = p1.x - p0.x;
+    // 决策参数
+    let p = 2 * deltaY - deltaX;
+    const points = [p0];
+    let curPoint = { x: p0.x, y: p0.y };
+    for (let i = 1; i <= deltaX; i++) {
+      let dy = 0;
+      curPoint = { x: curPoint.x, y: curPoint.y };
+      curPoint.x = curPoint.x + 1;
+      if (p >= 0) {
+        curPoint.y = curPoint.y + 1;
+        dy = 1;
+      }
+      points.push(curPoint);
+      p = p + 2 * deltaY - 2 * deltaX * dy;
+    }
+    debugger;
+    render(points);
+  }
+  bresenham();
 
 </script>
 </body>
