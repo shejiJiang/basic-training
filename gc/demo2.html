@@ -1,0 +1,45 @@
+<html>
+<head>
+  <title>画圆算法</title>
+</head>
+<body>
+<canvas id="demoCanvas" width="200" height="200" style="background: #ccc;"/>
+<script type="text/javascript" src="common.js"></script>
+<script type="text/javascript">
+  const pc = {x: 100, y: 100}, r = 40;
+  let p = 5/4 - r;
+  let curPoint = { x: 0, y: r };
+  let points = [curPoint];
+  while (curPoint.x < curPoint.y) {
+    curPoint = { x: curPoint.x, y: curPoint.y };
+    if (p < 0) {
+      p = p + 2 * curPoint.x + 3;
+    } else {
+      p = p + 2 * curPoint.x + 3 - (2 * curPoint.y - 2);
+      curPoint.y--;
+    }
+    curPoint.x++;
+    points.push(curPoint);
+  }
+  // 复制八份
+  points = points.map(point => {
+    return [
+      { x: point.x, y: point.y },
+      { x: -point.x, y: -point.y },
+      { x: -point.x, y: point.y },
+      { x: point.x, y: -point.y },
+      { y: point.x, x: point.y },
+      { y: -point.x, x: -point.y },
+      { y: -point.x, x: point.y },
+      { y: point.x, x: -point.y },
+    ];
+  }).flat();
+  // 平移
+  points.forEach(point => {
+    point.x+= pc.x;
+    point.y+= pc.y;
+  });
+  render(points);
+</script>
+</body>
+</html>
